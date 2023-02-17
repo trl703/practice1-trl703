@@ -27,7 +27,16 @@ Please use Github to collaborate on this problem. For example, one member can cr
 ```{r}
 
 data<-read.csv("gapminder-5060.csv")
+library("ggplot2")
 
+data$lifeExp[data$lifeExp == 999999] = 69.96
+library("dplyr")
+head(subsetdata)
+subsetdata <- data %>%
+  filter(country %in% c("Canada","Australia","United States"))
+ggplot(data=subsetdata,aes(x=lifeExp,y=gdpPercap,group=country))+
+  geom_line()+
+  geom_point()
 
 
 ```
