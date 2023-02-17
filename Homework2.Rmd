@@ -1,0 +1,32 @@
+---
+title: "Homework 2"
+author: "Tracie-Lynn Lamoreux"
+date: "2023-02-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2) ##install / utilize the ggplot package for data visulization
+popdata <- read.csv("gapminder-5060.csv") ##Read in the CSV file, make sure to located using your working directory (use setwd() function to set working directory)
+head(popdata) ##make sure data was read in correctly
+popdata$lifeExp[popdata$lifeExp == 999999] = 69.96 ###reset incorrect value by locating observations for life expectancy that are equal to 9999999 and set eqal to zero
+max(popdata$lifeExp) ###max should not equal 9999999
+
+```
+```{r}
+library("dplyr") ###in order to make a subset of the data based on satisfying conditions, download dplyr package
+subsetpopdata <- popdata %>%
+  filter(country %in% c("Canada","Mexico","United States"))  %>%
+  select(year,lifeExp, country) ###selecting variables year, life expectancy, country from data set with observations that have country equal to canada, united states, or mexico
+head(subsetpopdata) ##making sure data looks correct
+```
+```{r}
+ggplot(subsetpopdata, aes(x=year,y=lifeExp, group=country))+ 
+  geom_line(color="deeppink4",aes(linetype=country))+
+  geom_point(color = "deeppink4")+ 
+  xlab("Year") +
+  ylab("Life Expectancy")+
+##use ggplot to plot a line chart. Here we take the dataset created (subsetpopdata), grab our x,y,and grouping variables. Plot the line (i made mine pink and made the line types dependent on country). Plot the points for each year, and set lables. 
+```
+
